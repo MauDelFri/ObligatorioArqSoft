@@ -3,8 +3,8 @@ package Obligatorio.entidades;
 import java.util.Date;
 import java.util.Set;
 
-public class Incidencia {
-    private int incidenciaID;
+public class Emergencia {
+    private int emergenciaID;
     private Persona persona;
     private Date fechaHoraSolicitada;
     private double calcPerfil;
@@ -15,15 +15,15 @@ public class Incidencia {
     private int urgenciaResuelta;
     private Set<JMS> colas;
 
-    public Incidencia() {
+    public Emergencia() {
     }
 
-    public int getIncidenciaID() {
-        return incidenciaID;
+    public int getEmergenciaID() {
+        return emergenciaID;
     }
 
-    public void setIncidenciaID(int incidenciaID) {
-        this.incidenciaID = incidenciaID;
+    public void setEmergenciaID(int emergenciaID) {
+        this.emergenciaID = emergenciaID;
     }
 
     public Persona getPersona() {

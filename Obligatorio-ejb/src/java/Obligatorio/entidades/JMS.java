@@ -7,7 +7,7 @@ public class JMS {
     private String nombre;
     private String descripcion;
     private Set<Ambulancia> ambulancias;
-    private Set<Incidencia> incidencias;
+    private Set<Emergencia> emergencias;
 
     public JMS() {
     }
@@ -20,12 +20,12 @@ public class JMS {
         this.ambulancias = ambulancias;
     }
 
-    public Set<Incidencia> getIncidencias() {
-        return incidencias;
+    public Set<Emergencia> getEmergencias() {
+        return emergencias;
     }
 
-    public void setIncidencias(Set<Incidencia> incidencias) {
-        this.incidencias = incidencias;
+    public void setEmergencias(Set<Emergencia> emergencias) {
+        this.emergencias = emergencias;
     }
 
     public int getJmsID() {
@@ -60,11 +60,11 @@ public class JMS {
         this.ambulancias.remove(ambulancia);
     }
     
-    public void AgregarIncidencia(Incidencia nuevaIncidencia){
-        this.incidencias.add(nuevaIncidencia);
+    public void AgregarIncidencia(Emergencia nuevaIncidencia){
+        this.emergencias.add(nuevaIncidencia);
     }
     
-    public void EliminarIncidencia(Incidencia incidencia){
-        this.incidencias.remove(incidencia);
+    public void EliminarIncidencia(Emergencia incidencia){
+        this.emergencias.remove(incidencia);
     }
 }
