@@ -1,8 +1,13 @@
 
 package obligatorio.servicios;
 
+import Entidades.Ambulancia;
+import Entidades.Emergencia;
 import Entidades.Persona;
+import Negocio.AmbulanciaSBLocal;
+import Negocio.EmergenciaSBLocal;
 import Negocio.PersonaSBLocal;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
@@ -23,7 +28,13 @@ public class EmergenciasResource {
     private UriInfo context;
     
     @EJB
+    EmergenciaSBLocal emergenciasBean;
+    
+    @EJB
     PersonaSBLocal personasBean;
+    
+    @EJB
+    AmbulanciaSBLocal ambulanciasBean;
     
     public EmergenciasResource() {
     }
@@ -38,22 +49,17 @@ public class EmergenciasResource {
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
-    public void NuevaEmergencia(@FormParam("idPersona") int personaID) {
-
-    }
-    
-    @POST
-    @Path("/nuevaPersona")
-    @Consumes("application/x-www-form-urlencoded")
     public void NuevaEmergencia(@FormParam("idPersona") long personaID) {
-        Persona persona = new Persona();
-        persona.setPersonaId(personaID);
-        persona.setPersonaNombre("Netbeans");
-        persona.setPersonaApellido("Puto");
-        persona.setPersonaCedula("12345678");
-        Date fecha = new Date();
-        persona.setPersonaFechanac(fecha);
-
-        personasBean.Crear(persona);
+        Persona persona = personasBean.GetPersona(personaID);
+        Ambulancia ambulancia = ambulanciasBean.GetAmbulancia(1);
+        
+        Emergencia emergencia = new Emergencia();
+        emergencia.setEmergenciaPersonaid(persona);
+        emergencia.setEmergenciaFechasolicitada(new Date());
+        emergencia.setEmergenciaCalcperfil(BigDecimal.ONE);
+        emergencia.setEmergenciaUrgenciasolicitada(Short.parseShort("1"));
+        emergencia.setEmergenciaAmbulanciaid(ambulancia);
+        
+        emergenciasBean.Crear(emergencia);
     }
 }
