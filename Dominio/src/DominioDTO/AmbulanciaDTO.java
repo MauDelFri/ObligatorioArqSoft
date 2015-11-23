@@ -11,11 +11,16 @@ package DominioDTO;
  */
 public class AmbulanciaDTO {
 
-    public int getAmbulanciaID() {
+    
+    private Long ambulanciaID;
+    private String nombre;
+    private short disponible;
+
+    public Long getAmbulanciaID() {
         return ambulanciaID;
     }
 
-    public void setAmbulanciaID(int ambulanciaID) {
+    public void setAmbulanciaID(Long ambulanciaID) {
         this.ambulanciaID = ambulanciaID;
     }
 
@@ -27,14 +32,13 @@ public class AmbulanciaDTO {
         this.nombre = nombre;
     }
 
-    public Boolean getDisponible() {
+    public short getDisponible() {
         return disponible;
     }
 
-    public void setDisponible(Boolean disponible) {
+    public void setDisponible(short disponible) {
         this.disponible = disponible;
     }
-    private int ambulanciaID;
-    private String nombre;
-    private Boolean disponible;
+
+  
 }
