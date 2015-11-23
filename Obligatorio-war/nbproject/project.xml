@@ -12,12 +12,16 @@
                 <library dirs="100">
                     <file>${reference.Obligatorio-ejb.dist}</file>
                 </library>
+                <library dirs="100">
+                    <file>${reference.AppGestionPersistencia.dist}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
                 <library dirs="200">
                     <file>${file.reference.gson-2.4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library dirs="100">
-                    <file>${reference.AppGestionPersistencia.dist}</file>
+                <library dirs="200">
+                    <file>${reference.Dominio.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
@@ -37,6 +41,14 @@
                 <target>dist</target>
                 <clean-target>clean</clean-target>
                 <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>Dominio</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
             </reference>
             <reference>
                 <foreign-project>Obligatorio-ejb</foreign-project>

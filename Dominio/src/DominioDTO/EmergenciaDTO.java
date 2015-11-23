@@ -5,7 +5,9 @@
  */
 package DominioDTO;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
+
 
 /**
  *
@@ -16,13 +18,13 @@ public class EmergenciaDTO {
     private AmbulanciaDTO ambulancia;
     
     private int emergenciaID;
-    private Double calcperfil;
-    private int urgenciaSolicitada;
+    private BigDecimal calcperfil;
+    private short urgenciaSolicitada;
     private String observaciones;
     
     private Date fechaSolicitada;
     private Date fechaResuelta;
-    private int urgenciaResuelta;
+    private short urgenciaResuelta;
 
     public PersonaDTO getPersona() {
         return persona;
@@ -48,19 +50,19 @@ public class EmergenciaDTO {
         this.emergenciaID = emergenciaID;
     }
 
-    public Double getCalcperfil() {
+    public BigDecimal getCalcperfil() {
         return calcperfil;
     }
 
-    public void setCalcperfil(Double calcperfil) {
+    public void setCalcperfil(BigDecimal calcperfil) {
         this.calcperfil = calcperfil;
     }
 
-    public int getUrgenciaSolicitada() {
+    public short getUrgenciaSolicitada() {
         return urgenciaSolicitada;
     }
 
-    public void setUrgenciaSolicitada(int urgenciaSolicitada) {
+    public void setUrgenciaSolicitada(short urgenciaSolicitada) {
         this.urgenciaSolicitada = urgenciaSolicitada;
     }
 
@@ -88,11 +90,15 @@ public class EmergenciaDTO {
         this.fechaResuelta = fechaResuelta;
     }
 
-    public int getUrgenciaResuelta() {
+    public short getUrgenciaResuelta() {
         return urgenciaResuelta;
     }
 
-    public void setUrgenciaResuelta(int urgenciaResuelta) {
+    public void setUrgenciaResuelta(short urgenciaResuelta) {
         this.urgenciaResuelta = urgenciaResuelta;
     }
+
+   
+
+  
 }

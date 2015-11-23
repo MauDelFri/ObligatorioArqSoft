@@ -5,7 +5,9 @@
  */
 package DominioDTO;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
+
 
 /**
  *
@@ -13,21 +15,21 @@ import java.sql.Date;
  */
 public class PersonaDTO {
 
-    private int id;
+    private Long id;
     private String nombre;
     private String apellido;
     private String cedula;
     private Date fechaNacimiento;
-    private Boolean genero;
-    private Double peso;
-    private Double altura;
-    private Double IMC;
-    
-    public int getId() {
+    private String genero;
+    private BigDecimal peso;
+    private BigDecimal altura;
+    private BigDecimal IMC;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,37 +65,38 @@ public class PersonaDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Boolean getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(Boolean genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    public Double getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(Double peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 
-    public Double getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public void setAltura(Double altura) {
+    public void setAltura(BigDecimal altura) {
         this.altura = altura;
     }
 
-    public Double getIMC() {
+    public BigDecimal getIMC() {
         return IMC;
     }
 
-    public void setIMC(Double IMC) {
+    public void setIMC(BigDecimal IMC) {
         this.IMC = IMC;
     }
-    
-    
+
+   
+   
 }
