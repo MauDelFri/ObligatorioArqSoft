@@ -1,9 +1,8 @@
-
 package obligatorio.servicios;
 
-import Entidades.Ambulancia;
-import Entidades.Emergencia;
-import Entidades.Persona;
+import DominioDTO.AmbulanciaDTO;
+import DominioDTO.EmergenciaDTO;
+import DominioDTO.PersonaDTO;
 import Negocio.AmbulanciaSBLocal;
 import Negocio.EmergenciaSBLocal;
 import Negocio.PersonaSBLocal;
@@ -26,16 +25,16 @@ public class EmergenciasResource {
 
     @Context
     private UriInfo context;
-    
+
     @EJB
     EmergenciaSBLocal emergenciasBean;
-    
+
     @EJB
     PersonaSBLocal personasBean;
-    
+
     @EJB
     AmbulanciaSBLocal ambulanciasBean;
-    
+
     public EmergenciasResource() {
     }
 
@@ -50,16 +49,26 @@ public class EmergenciasResource {
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
     public void NuevaEmergencia(@FormParam("idPersona") long personaID) {
-        Persona persona = personasBean.GetPersona(personaID);
-        Ambulancia ambulancia = ambulanciasBean.GetAmbulancia(1);
-        
-        Emergencia emergencia = new Emergencia();
-        emergencia.setEmergenciaPersonaid(persona);
-        emergencia.setEmergenciaFechasolicitada(new Date());
-        emergencia.setEmergenciaCalcperfil(BigDecimal.ONE);
-        emergencia.setEmergenciaUrgenciasolicitada(Short.parseShort("1"));
-        emergencia.setEmergenciaAmbulanciaid(ambulancia);
-        
+        PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
+
+        //TODO: hacer el algoritmo que levante que ambulancia se le va a asignar
+        AmbulanciaDTO ambulancia = ambulanciasBean.GetAmbulanciaDTO(1);
+
+        EmergenciaDTO emergencia = new EmergenciaDTO();
+        emergencia.setPersona(persona);
+        emergencia.setAmbulancia(ambulancia);
+
+        emergencia.setFechaSolicitada(new Date());
+
+        //TODO: calculo del perfil de la persona
+        emergencia.setCalcperfil(BigDecimal.ONE);
+
+        emergencia.setUrgenciaSolicitada(Short.parseShort("1"));
+
         emergenciasBean.Crear(emergencia);
+
+        
+
+
     }
 }
