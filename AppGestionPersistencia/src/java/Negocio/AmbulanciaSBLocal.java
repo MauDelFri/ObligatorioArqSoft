@@ -1,10 +1,13 @@
 
 package Negocio;
 
+import DominioDTO.AmbulanciaDTO;
 import Entidades.Ambulancia;
 import javax.ejb.Local;
 
 @Local
 public interface AmbulanciaSBLocal {
-    Ambulancia GetAmbulancia(long AmbulanciaID);
+    AmbulanciaDTO GetAmbulanciaDTO(long AmbulanciaID);
+    Ambulancia GetAmbulanciaDB(long AmbulanciaID);
+
 }
