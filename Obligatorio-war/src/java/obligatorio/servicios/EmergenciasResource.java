@@ -32,10 +32,10 @@ public class EmergenciasResource {
 
     @EJB
     AmbulanciaSBLocal ambulanciasBean;
-    
+
     @EJB
     ManejadorJMS_SBLocal manejadorJMSBean;
-    
+
     public EmergenciasResource() {
     }
 
@@ -49,8 +49,10 @@ public class EmergenciasResource {
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
-    public void NuevaEmergencia(@FormParam("idPersona") long personaID) {
+    public void NuevaEmergencia(@FormParam("idPersona") long personaID,@FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
         PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
+
+        
         //TODO: hacer el algoritmo que levante que ambulancia se le va a asignar
         AmbulanciaDTO ambulancia = ambulanciasBean.GetAmbulanciaDTO(1);
 
@@ -59,21 +61,9 @@ public class EmergenciasResource {
         emergencia.setAmbulancia(ambulancia);
         emergencia.setFechaSolicitada(new Date());
         emergencia.setUrgenciaSolicitada(Short.parseShort("1"));
+        emergencia.setCalcperfil(personasBean.GetPonderacion(persona));
 
         manejadorJMSBean.ProcesarEmergencia(emergencia);
 
-//    public void NuevaEmergencia(@FormParam("idPersona") long personaID,
-//                                @FormParam("severidad") short severidad) {
-//        
-//        Persona persona = personasBean.GetPersona(personaID);
-//        Ambulancia ambulancia = ambulanciasBean.GetAmbulancia(1);
-//        
-//        Emergencia emergencia = new Emergencia();
-//        emergencia.setEmergenciaPersonaid(persona);
-//        emergencia.setEmergenciaFechasolicitada(new Date());
-//        emergencia.setEmergenciaUrgenciasolicitada(severidad);
-//        emergencia.setEmergenciaAmbulanciaid(ambulancia);
-//        
-//        manejadorJMSBean.ProcesarEmergencia(emergencia);
     }
 }
