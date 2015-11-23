@@ -7,4 +7,6 @@ import javax.ejb.Local;
 @Local
 public interface PersonaSBLocal {
     Persona GetPersona(long personaID);
+    
+    int CalculoSeveridad(Persona persona);
 }

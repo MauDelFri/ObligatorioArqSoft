@@ -2,9 +2,15 @@
 package Negocio;
 
 import Entidades.Emergencia;
+import java.util.Iterator;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @Stateless
 public class EmergenciaSB implements EmergenciaSBLocal {
@@ -13,8 +19,14 @@ public class EmergenciaSB implements EmergenciaSBLocal {
     EntityManager em;
     
     @Override
-    public void Crear(Emergencia emergencia) {
-        em.persist(emergencia);
+    public Emergencia Crear(Emergencia emergencia) {
+        try{
+            em.persist(emergencia);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return emergencia;
     }
 
     @Override
@@ -26,5 +38,4 @@ public class EmergenciaSB implements EmergenciaSBLocal {
     public void Eliminar(Emergencia emergencia) {
         em.remove(emergencia);
     }
-
 }
