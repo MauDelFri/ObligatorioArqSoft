@@ -18,8 +18,9 @@ public class ManejadorJMS_SB implements ManejadorJMS_SBLocal {
     
     @Override
     public void ProcesarEmergencia(EmergenciaDTO emergencia) {
-        double calculo = personaSB.CalculoSeveridad(emergencia.getPersona());
-        emergencia.setCalcperfil(BigDecimal.valueOf(calculo));
+        
+//        double calculo = personaSB.CalculoSeveridad(emergencia.getPersona());
+//        emergencia.setCalcperfil(BigDecimal.valueOf(calculo));
         emergencia = emergenciaSB.Crear(emergencia);
         
         ProductorMensajes.ProducirMensaje("Emergencia " + emergencia.getEmergenciaID(), "jms/Topic" + emergencia.getUrgenciaSolicitada());
