@@ -6,6 +6,7 @@
             <name>Obligatorio-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="100">reference.AppGestionPersistencia.dist</included-library>
+            <included-library dirs="200">reference.Dominio.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -21,6 +22,14 @@
                 <target>dist</target>
                 <clean-target>clean</clean-target>
                 <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>Dominio</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
             </reference>
         </references>
     </configuration>

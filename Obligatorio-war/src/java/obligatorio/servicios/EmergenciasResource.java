@@ -51,38 +51,29 @@ public class EmergenciasResource {
     @Consumes("application/x-www-form-urlencoded")
     public void NuevaEmergencia(@FormParam("idPersona") long personaID) {
         PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
-
         //TODO: hacer el algoritmo que levante que ambulancia se le va a asignar
         AmbulanciaDTO ambulancia = ambulanciasBean.GetAmbulanciaDTO(1);
 
         EmergenciaDTO emergencia = new EmergenciaDTO();
         emergencia.setPersona(persona);
         emergencia.setAmbulancia(ambulancia);
-
         emergencia.setFechaSolicitada(new Date());
-
-        //TODO: calculo del perfil de la persona
-        emergencia.setCalcperfil(BigDecimal.ONE);
-
         emergencia.setUrgenciaSolicitada(Short.parseShort("1"));
 
-        emergenciasBean.Crear(emergencia);
-
-        
-
-
-    public void NuevaEmergencia(@FormParam("idPersona") long personaID,
-                                @FormParam("severidad") short severidad) {
-        
-        Persona persona = personasBean.GetPersona(personaID);
-        Ambulancia ambulancia = ambulanciasBean.GetAmbulancia(1);
-        
-        Emergencia emergencia = new Emergencia();
-        emergencia.setEmergenciaPersonaid(persona);
-        emergencia.setEmergenciaFechasolicitada(new Date());
-        emergencia.setEmergenciaUrgenciasolicitada(severidad);
-        emergencia.setEmergenciaAmbulanciaid(ambulancia);
-        
         manejadorJMSBean.ProcesarEmergencia(emergencia);
+
+//    public void NuevaEmergencia(@FormParam("idPersona") long personaID,
+//                                @FormParam("severidad") short severidad) {
+//        
+//        Persona persona = personasBean.GetPersona(personaID);
+//        Ambulancia ambulancia = ambulanciasBean.GetAmbulancia(1);
+//        
+//        Emergencia emergencia = new Emergencia();
+//        emergencia.setEmergenciaPersonaid(persona);
+//        emergencia.setEmergenciaFechasolicitada(new Date());
+//        emergencia.setEmergenciaUrgenciasolicitada(severidad);
+//        emergencia.setEmergenciaAmbulanciaid(ambulancia);
+//        
+//        manejadorJMSBean.ProcesarEmergencia(emergencia);
     }
 }

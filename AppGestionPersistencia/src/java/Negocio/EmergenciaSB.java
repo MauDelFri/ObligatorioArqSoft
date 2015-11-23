@@ -25,12 +25,13 @@ public class EmergenciaSB implements EmergenciaSBLocal {
 
     
     @Override
-    public void Crear2(Emergencia db) {
+    public Emergencia Crear2(Emergencia db) {
         em.persist(db);
+        return db;
     }
     
     @Override
-    public void Crear(EmergenciaDTO emergenciaDTO) {
+    public EmergenciaDTO Crear(EmergenciaDTO emergenciaDTO) {
         Emergencia db = new Emergencia();
 
         Persona p = personasBean.GetPersonaDB(emergenciaDTO.getPersona().getId());
@@ -47,12 +48,10 @@ public class EmergenciaSB implements EmergenciaSBLocal {
         db.setEmergenciaUrgenciaresuelta(emergenciaDTO.getUrgenciaResuelta());
         
         em.persist(db);
+        emergenciaDTO.setEmergenciaID(db.getEmergenciaId().intValue());
+        
+        return emergenciaDTO;
     }
-//
-//    @Override
-//    public void Crear(Emergencia emergencia) {
-//        em.persist(emergencia);
-//    }
 
     @Override
     public void Editar(EmergenciaDTO emergencia) {

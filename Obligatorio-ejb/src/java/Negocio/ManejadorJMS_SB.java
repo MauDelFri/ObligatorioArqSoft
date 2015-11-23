@@ -1,7 +1,7 @@
 
 package Negocio;
 
-import Entidades.Emergencia;
+import DominioDTO.EmergenciaDTO;
 import JMS.ProductorMensajes;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
@@ -17,11 +17,11 @@ public class ManejadorJMS_SB implements ManejadorJMS_SBLocal {
     EmergenciaSBLocal emergenciaSB;
     
     @Override
-    public void ProcesarEmergencia(Emergencia emergencia) {
-        double calculo = personaSB.CalculoSeveridad(emergencia.getEmergenciaPersonaid());
-        emergencia.setEmergenciaCalcperfil(BigDecimal.valueOf(calculo));
+    public void ProcesarEmergencia(EmergenciaDTO emergencia) {
+        double calculo = personaSB.CalculoSeveridad(emergencia.getPersona());
+        emergencia.setCalcperfil(BigDecimal.valueOf(calculo));
         emergencia = emergenciaSB.Crear(emergencia);
         
-        ProductorMensajes.ProducirMensaje("Emergencia " + emergencia.getEmergenciaId(), "jms/Topic" + emergencia.getEmergenciaUrgenciasolicitada());
+        ProductorMensajes.ProducirMensaje("Emergencia " + emergencia.getEmergenciaID(), "jms/Topic" + emergencia.getUrgenciaSolicitada());
     }
 }

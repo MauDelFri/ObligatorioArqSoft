@@ -37,7 +37,7 @@ public class PersonaSB implements PersonaSBLocal {
     }
 
     @Override
-    public int CalculoSeveridad(Persona persona) {
+    public int CalculoSeveridad(PersonaDTO persona) {
         return 1;
     }
 
