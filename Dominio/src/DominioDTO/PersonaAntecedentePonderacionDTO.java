@@ -5,6 +5,7 @@
  */
 package DominioDTO;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -16,7 +17,7 @@ public class PersonaAntecedentePonderacionDTO {
 
     private PersonaDTO persona;
     private AntecedenteDTO antecedente;
-    private Double calcant;
+    private BigDecimal calcant;
     private Date fechaVigDesde;
     private Date fechaVigHasta;
 
@@ -36,11 +37,11 @@ public class PersonaAntecedentePonderacionDTO {
         this.antecedente = antecedente;
     }
 
-    public Double getCalcant() {
+    public BigDecimal getCalcant() {
         return calcant;
     }
 
-    public void setCalcant(Double calcant) {
+    public void setCalcant(BigDecimal calcant) {
         this.calcant = calcant;
     }
 
@@ -59,4 +60,6 @@ public class PersonaAntecedentePonderacionDTO {
     public void setFechaVigHasta(Date fechaVigHasta) {
         this.fechaVigHasta = fechaVigHasta;
     }
+
+    
 }
