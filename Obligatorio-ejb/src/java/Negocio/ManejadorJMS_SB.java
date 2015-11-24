@@ -16,12 +16,18 @@ public class ManejadorJMS_SB implements ManejadorJMS_SBLocal {
     @EJB
     EmergenciaSBLocal emergenciaSB;
     
+    @EJB
+    ColaEmergenciaSBLocal colaEmergenciaSB;
+    
     @Override
-    public void ProcesarEmergencia(EmergenciaDTO emergencia) {
+    public EmergenciaDTO ProcesarEmergencia(EmergenciaDTO emergencia) {
         double calculo = personaSB.CalculoSeveridad(emergencia.getPersona());
         emergencia.setCalcperfil(BigDecimal.valueOf(calculo));
         emergencia = emergenciaSB.Crear(emergencia);
         
+        colaEmergenciaSB.AgregarEmergencia(emergencia, emergencia.getUrgenciaSolicitada());
+        
         ProductorMensajes.ProducirMensaje("Emergencia " + emergencia.getEmergenciaID(), "jms/Topic" + emergencia.getUrgenciaSolicitada());
+        return emergencia;
     }
 }

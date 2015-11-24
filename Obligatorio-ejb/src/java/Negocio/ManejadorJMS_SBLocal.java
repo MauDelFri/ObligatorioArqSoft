@@ -5,5 +5,5 @@ import javax.ejb.Local;
 
 @Local
 public interface ManejadorJMS_SBLocal {
-    void ProcesarEmergencia(EmergenciaDTO emergencia);
+    EmergenciaDTO ProcesarEmergencia(EmergenciaDTO emergencia);
 }

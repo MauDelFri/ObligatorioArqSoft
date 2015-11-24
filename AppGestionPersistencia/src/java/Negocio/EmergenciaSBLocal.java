@@ -11,4 +11,6 @@ public interface EmergenciaSBLocal {
     EmergenciaDTO Crear(EmergenciaDTO emergencia);
     void Editar(EmergenciaDTO emergencia);
     void Eliminar(EmergenciaDTO emergencia);
+    EmergenciaDTO GetEmergenciaDTO(long emergenciaID);
+    Emergencia GetEmergenciaDB(long emergenciaID);
 }

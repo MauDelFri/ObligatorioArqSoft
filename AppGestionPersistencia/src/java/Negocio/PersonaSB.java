@@ -31,7 +31,7 @@ public class PersonaSB implements PersonaSBLocal {
         dto.setPeso(db.getPersonaPeso());
         dto.setAltura(db.getPersonaAltura());
         dto.setIMC(db.getPersonaImc());
-
+        
         return dto;
 
     }
