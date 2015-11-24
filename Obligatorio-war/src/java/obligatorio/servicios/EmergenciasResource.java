@@ -4,6 +4,7 @@ import DominioDTO.AmbulanciaDTO;
 import DominioDTO.EmergenciaDTO;
 import DominioDTO.PersonaDTO;
 import Negocio.AmbulanciaSBLocal;
+import Negocio.AuditoriaSBLocal;
 import Negocio.EmergenciaSBLocal;
 import Negocio.ManejadorJMS_SBLocal;
 import Negocio.PersonaSBLocal;
@@ -36,9 +37,12 @@ public class EmergenciasResource {
 
     @EJB
     AmbulanciaSBLocal ambulanciasBean;
-    
+
     @EJB
-    EmergenciaSBLocal emergenciasBean;
+    ManejadorJMS_SBLocal manejadorJMSBean;
+
+    @EJB
+    AuditoriaSBLocal auditoriasBean;
     
     @EJB
     ManejadorJMS_SBLocal manejadorJMSBean;
@@ -56,8 +60,11 @@ public class EmergenciasResource {
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
-    public Response NuevaEmergencia(@FormParam("idPersona") long personaID,
-                                    @FormParam("severidad") short severidad) {
+    public void NuevaEmergencia(@FormParam("idPersona") long personaID,@FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
+        
+        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Comienza Transaccion", true);
+        
+        
         PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
 
         EmergenciaDTO emergencia = new EmergenciaDTO();
@@ -66,7 +73,8 @@ public class EmergenciasResource {
         emergencia.setUrgenciaSolicitada(Short.parseShort("1"));
         emergencia.setCalcperfil(personasBean.GetPonderacion(persona));
 
-        emergencia = manejadorJMSBean.ProcesarEmergencia(emergencia);
+        manejadorJMSBean.ProcesarEmergencia(emergencia);
+        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Fin Transaccion", true);
 
         Date comienzo = new Date();
         Date current = new Date();
