@@ -42,7 +42,7 @@ public class EmergenciasResource {
     
     @EJB
     ManejadorJMS_SBLocal manejadorJMSBean;
-    
+
     public EmergenciasResource() {
     }
 
@@ -64,14 +64,9 @@ public class EmergenciasResource {
         emergencia.setPersona(persona);
         emergencia.setFechaSolicitada(new Date());
         emergencia.setUrgenciaSolicitada(Short.parseShort("1"));
+        emergencia.setCalcperfil(personasBean.GetPonderacion(persona));
 
         emergencia = manejadorJMSBean.ProcesarEmergencia(emergencia);
-        
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(EmergenciasResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         Date comienzo = new Date();
         Date current = new Date();

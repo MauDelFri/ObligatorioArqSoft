@@ -84,4 +84,13 @@ public class AmbulanciasResource {
             return Response.notAcceptable(null).build();
         }
     }
+    
+    @GET
+    @Path("/getColasSubscripcion")
+    @Produces("application/json")
+    public Response GetColasSubscripcion(@QueryParam("idAmbulancia") long ambulanciaID) {
+        Gson gson = new Gson(); 
+        int[] target = ambulanciasSB.GetColasAmbulancia(ambulanciaID);
+        return Response.accepted(gson.toJson(target)).build();
+    }
 }
