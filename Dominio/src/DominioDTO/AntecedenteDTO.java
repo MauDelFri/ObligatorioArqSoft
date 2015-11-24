@@ -10,17 +10,17 @@ package DominioDTO;
  * @author martinintroini
  */
 public class AntecedenteDTO {
-    private int antecedenteID;
+    private Long antecedenteID;
     private String nombre;
-    private int factorRiesgoAlto;
-    private int factorRiesgoMedio;
-    private int factorRiesgoBajo;
+    private short factorRiesgoAlto;
+    private short factorRiesgoMedio;
+    private short factorRiesgoBajo;
 
-    public int getAntecedenteID() {
+    public Long getAntecedenteID() {
         return antecedenteID;
     }
 
-    public void setAntecedenteID(int antecedenteID) {
+    public void setAntecedenteID(Long antecedenteID) {
         this.antecedenteID = antecedenteID;
     }
 
@@ -32,28 +32,32 @@ public class AntecedenteDTO {
         this.nombre = nombre;
     }
 
-    public int getFactorRiesgoAlto() {
+    public short getFactorRiesgoAlto() {
         return factorRiesgoAlto;
     }
 
-    public void setFactorRiesgoAlto(int factorRiesgoAlto) {
+    public void setFactorRiesgoAlto(short factorRiesgoAlto) {
         this.factorRiesgoAlto = factorRiesgoAlto;
     }
 
-    public int getFactorRiesgoMedio() {
+    public short getFactorRiesgoMedio() {
         return factorRiesgoMedio;
     }
 
-    public void setFactorRiesgoMedio(int factorRiesgoMedio) {
+    public void setFactorRiesgoMedio(short factorRiesgoMedio) {
         this.factorRiesgoMedio = factorRiesgoMedio;
     }
 
-    public int getFactorRiesgoBajo() {
+    public short getFactorRiesgoBajo() {
         return factorRiesgoBajo;
     }
 
-    public void setFactorRiesgoBajo(int factorRiesgoBajo) {
+    public void setFactorRiesgoBajo(short factorRiesgoBajo) {
         this.factorRiesgoBajo = factorRiesgoBajo;
     }
+
+    
+
+  
     
 }
