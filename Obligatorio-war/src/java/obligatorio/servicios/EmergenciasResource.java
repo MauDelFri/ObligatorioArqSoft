@@ -4,6 +4,7 @@ import DominioDTO.AmbulanciaDTO;
 import DominioDTO.EmergenciaDTO;
 import DominioDTO.PersonaDTO;
 import Negocio.AmbulanciaSBLocal;
+import Negocio.AuditoriaSBLocal;
 import Negocio.EmergenciaSBLocal;
 import Negocio.ManejadorJMS_SBLocal;
 import Negocio.PersonaSBLocal;
@@ -36,6 +37,9 @@ public class EmergenciasResource {
     @EJB
     ManejadorJMS_SBLocal manejadorJMSBean;
 
+    @EJB
+    AuditoriaSBLocal auditoriasBean;
+    
     public EmergenciasResource() {
     }
 
@@ -50,6 +54,10 @@ public class EmergenciasResource {
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
     public void NuevaEmergencia(@FormParam("idPersona") long personaID,@FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
+        
+        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Comienza Transaccion", true);
+        
+        
         PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
 
         
@@ -64,6 +72,7 @@ public class EmergenciasResource {
         emergencia.setCalcperfil(personasBean.GetPonderacion(persona));
 
         manejadorJMSBean.ProcesarEmergencia(emergencia);
+        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Fin Transaccion", true);
 
     }
 }
