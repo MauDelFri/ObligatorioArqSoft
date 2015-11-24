@@ -23,6 +23,7 @@ public class AuditoriaSB implements AuditoriaSBLocal {
 
     @PersistenceContext
     EntityManager em;
+    
     @Override
     public void Log(Object claseOrigen, Long usuarioID, String funcionalidad, String obs, Boolean resultado) {
         logArchivo(claseOrigen, usuarioID, funcionalidad);
