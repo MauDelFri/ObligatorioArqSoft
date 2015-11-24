@@ -45,8 +45,8 @@ public class EmergenciasResource {
     AuditoriaSBLocal auditoriasBean;
     
     @EJB
-    ManejadorJMS_SBLocal manejadorJMSBean;
-
+    EmergenciaSBLocal emergenciasBean;
+    
     public EmergenciasResource() {
     }
 
@@ -60,7 +60,8 @@ public class EmergenciasResource {
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
-    public void NuevaEmergencia(@FormParam("idPersona") long personaID,@FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
+    public Response NuevaEmergencia(@FormParam("idPersona") long personaID,
+                                    @FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
         
         auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Comienza Transaccion", true);
         
