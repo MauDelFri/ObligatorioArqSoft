@@ -1,7 +1,12 @@
 package Negocio;
 
+import DominioDTO.PersonaAntecedentePonderacionDTO;
 import DominioDTO.PersonaDTO;
-import Entidades.Persona;
+import Entidades.*;
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,11 +17,15 @@ public class PersonaSB implements PersonaSBLocal {
     @PersistenceContext
     EntityManager em;
 
+    @EJB
+    PersonaAntecedentePonderacionSBLocal papsBean;
+
     @Override
     public Persona GetPersonaDB(long personaID) {
         Persona persona = (Persona) em.createNativeQuery("SELECT * FROM PERSONA WHERE PERSONA_ID=" + personaID, Persona.class).getSingleResult();
         return persona;
     }
+
     @Override
     public PersonaDTO GetPersonaDTO(long personaID) {
         Persona db = (Persona) em.createNativeQuery("SELECT * FROM PERSONA WHERE PERSONA_ID=" + personaID, Persona.class).getSingleResult();
@@ -36,10 +45,25 @@ public class PersonaSB implements PersonaSBLocal {
 
     }
 
+
+
     @Override
-    public int CalculoSeveridad(PersonaDTO persona) {
-        return 1;
+    public BigDecimal GetPonderacion(PersonaDTO persona) {
+        Iterator it = papsBean.getPonderacionesPersona(persona.getId()).iterator();
+        BigDecimal pond = BigDecimal.ZERO;
+        BigDecimal dato ;
+        while (it.hasNext()){
+            PersonaAntecedentePonderacionDTO acutal = (PersonaAntecedentePonderacionDTO) it.next();
+            dato = acutal.getCalcant();
+            if(pond.compareTo(acutal.getCalcant()) == -1)
+            {
+                pond = acutal.getCalcant();
+            }
+
+        }
+        
+        return pond;
+        
     }
 
-    
 }
