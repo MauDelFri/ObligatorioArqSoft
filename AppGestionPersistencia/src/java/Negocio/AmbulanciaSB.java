@@ -3,6 +3,7 @@ package Negocio;
 
 import DominioDTO.AmbulanciaDTO;
 import Entidades.Ambulancia;
+import Entidades.Colaemergencia;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,7 +32,6 @@ public class AmbulanciaSB implements AmbulanciaSBLocal {
     @Override
     public Ambulancia GetAmbulanciaDB(long ambulanciaID) {
         Ambulancia ambulancia = (Ambulancia)em.createNativeQuery("SELECT * FROM AMBULANCIA WHERE AMBULANCIA_ID=" + ambulanciaID, Ambulancia.class).getSingleResult();
-        em.close();
         return ambulancia;
     }
 
@@ -43,7 +43,7 @@ public class AmbulanciaSB implements AmbulanciaSBLocal {
         int pos = 0;
         int[] colas = new int[ambulancia.getColaemergenciaList().size()];
         while(colasIterator.hasNext()){
-            colas[pos] = (int)colasIterator.next();
+            colas[pos] = ((Colaemergencia)colasIterator.next()).getColaemergenciaId().intValue();
             pos ++;
         }
         return colas;

@@ -50,13 +50,6 @@ public class EmergenciasResource {
     public EmergenciasResource() {
     }
 
-    @GET
-    @Produces("application/xml")
-    public String getXML() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")

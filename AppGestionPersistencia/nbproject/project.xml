@@ -8,6 +8,7 @@
             <included-library dirs="200">file.reference.ojdbc7.jar</included-library>
             <included-library dirs="200">libs.eclipselink.classpath</included-library>
             <included-library dirs="200">reference.Dominio.jar</included-library>
+            <included-library dirs="200">file.reference.apache-log4j-1.2.15.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

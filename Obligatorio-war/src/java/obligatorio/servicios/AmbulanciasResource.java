@@ -88,6 +88,7 @@ public class AmbulanciasResource {
     @GET
     @Path("/getColasSubscripcion")
     @Produces("application/json")
+    @Consumes("application/json")
     public Response GetColasSubscripcion(@QueryParam("idAmbulancia") long ambulanciaID) {
         Gson gson = new Gson(); 
         int[] target = ambulanciasSB.GetColasAmbulancia(ambulanciaID);
