@@ -56,6 +56,10 @@ public class EmergenciasResource {
     public Response NuevaEmergencia(@FormParam("idPersona") long personaID,
                                     @FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
         
+        
+       
+        
+        
         auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Comienza Transaccion", true);
         
         
