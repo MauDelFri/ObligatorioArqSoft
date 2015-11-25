@@ -5,7 +5,6 @@ import DominioDTO.PersonaDTO;
 import Entidades.*;
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,30 +39,24 @@ public class PersonaSB implements PersonaSBLocal {
         dto.setPeso(db.getPersonaPeso());
         dto.setAltura(db.getPersonaAltura());
         dto.setIMC(db.getPersonaImc());
-        
+
         return dto;
-
     }
-
-
 
     @Override
     public BigDecimal GetPonderacion(PersonaDTO persona) {
         Iterator it = papsBean.getPonderacionesPersona(persona.getId()).iterator();
         BigDecimal pond = BigDecimal.ZERO;
-        BigDecimal dato ;
-        while (it.hasNext()){
+        BigDecimal dato;
+        while (it.hasNext()) {
             PersonaAntecedentePonderacionDTO acutal = (PersonaAntecedentePonderacionDTO) it.next();
             dato = acutal.getCalcant();
-            if(pond.compareTo(acutal.getCalcant()) == -1)
-            {
+            if (pond.compareTo(acutal.getCalcant()) == -1) {
                 pond = acutal.getCalcant();
             }
-
         }
-        
+
         return pond;
-        
     }
 
 }

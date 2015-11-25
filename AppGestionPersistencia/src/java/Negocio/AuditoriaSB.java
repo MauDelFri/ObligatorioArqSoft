@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Negocio;
 
 import DominioDTO.DatoTableroDTO;
@@ -17,10 +12,6 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-/**
- *
- * @author martinintroini
- */
 @Stateless
 public class AuditoriaSB implements AuditoriaSBLocal {
 
@@ -31,7 +22,6 @@ public class AuditoriaSB implements AuditoriaSBLocal {
     public void Log(Object claseOrigen, Long usuarioID, String funcionalidad, String obs, Boolean resultado) {
         logArchivo(claseOrigen, usuarioID, funcionalidad, obs, resultado);
         logBBDD(claseOrigen, usuarioID, funcionalidad, obs, resultado);
-
     }
 
     @Override
@@ -91,17 +81,4 @@ public class AuditoriaSB implements AuditoriaSBLocal {
 
         return listaRet;
     }
-
 }
-/*
- static Logger logger = Logger.getLogger(Pruebalog2.class);
-    
- public static void main(String[] args) {
- // TODO code application logic here
- URL url = Pruebalog2.class.getResource("Log4j.properties");
- PropertyConfigurator.configure(url);
- logger.info("Entrando a la Aplicacion");
- System.out.println("Mensaje por Consola");
- logger.info("Saliendo de la Aplicacion");
- }
- */

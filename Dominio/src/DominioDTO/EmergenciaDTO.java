@@ -1,27 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DominioDTO;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-/**
- *
- * @author martinintroini
- */
 public class EmergenciaDTO {
+
     private PersonaDTO persona;
     private AmbulanciaDTO ambulancia;
-    
+
     private int emergenciaID;
     private BigDecimal calcperfil;
     private short urgenciaSolicitada;
     private String observaciones;
-    
+
     private Date fechaSolicitada;
     private Date fechaResuelta;
     private short urgenciaResuelta;
@@ -98,7 +89,4 @@ public class EmergenciaDTO {
         this.urgenciaResuelta = urgenciaResuelta;
     }
 
-   
-
-  
 }

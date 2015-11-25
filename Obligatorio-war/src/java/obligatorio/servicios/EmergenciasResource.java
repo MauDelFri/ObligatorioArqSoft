@@ -9,22 +9,21 @@ import Negocio.EmergenciaSBLocal;
 import Negocio.ManejadorJMS_SBLocal;
 import Negocio.PersonaSBLocal;
 import com.google.gson.Gson;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+/**
+ *
+ * @author Mauricio
+ */
 @Path("emergencias")
 @RequestScoped
 public class EmergenciasResource {
@@ -43,26 +42,30 @@ public class EmergenciasResource {
 
     @EJB
     AuditoriaSBLocal auditoriasBean;
-    
+
     @EJB
     EmergenciaSBLocal emergenciasBean;
-    
+
+    /**
+     * No se utiliza.
+     */
     public EmergenciasResource() {
     }
 
+    /**
+     *
+     * @param personaID
+     * @param urgenciaSolicitada
+     * @return
+     */
     @POST
     @Path("/nuevaEmergencia")
     @Consumes("application/x-www-form-urlencoded")
     public Response NuevaEmergencia(@FormParam("idPersona") long personaID,
-                                    @FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
-        
-        
-       
-        
-        
-        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Comienza Transaccion", true);
-        
-        
+            @FormParam("urgenciaSolicitada") long urgenciaSolicitada) {
+        final long segundosMaximo = 10;
+        auditoriasBean.Log(this, personaID, "NuevaEmergencia", "Comienza Transaccion", true);
+
         PersonaDTO persona = personasBean.GetPersonaDTO(personaID);
 
         EmergenciaDTO emergencia = new EmergenciaDTO();
@@ -72,21 +75,23 @@ public class EmergenciasResource {
         emergencia.setCalcperfil(personasBean.GetPonderacion(persona));
 
         manejadorJMSBean.ProcesarEmergencia(emergencia);
-        auditoriasBean.Log(this,personaID, "NuevaEmergencia", "Fin Transaccion", true);
+        auditoriasBean.Log(this, personaID, "NuevaEmergencia", "Fin Transaccion", true);
 
         Date comienzo = new Date();
         Date current = new Date();
         AmbulanciaDTO ambulanciaDTO = null;
-        long seconds = (current.getTime()-comienzo.getTime())/1000;
-        while(ambulanciaDTO == null && seconds <= 10){
-            ambulanciaDTO = emergenciasBean.GetEmergenciaDTO(emergencia.getEmergenciaID()).getAmbulancia();
+        long seconds = (current.getTime() - comienzo.getTime()) / 1000;
+        while (ambulanciaDTO == null && seconds <= 10) {
+            ambulanciaDTO = emergenciasBean.GetEmergenciaDTO(
+                    emergencia.getEmergenciaID()).getAmbulancia();
             current = new Date();
-            seconds = (current.getTime()-comienzo.getTime())/1000;
+            seconds = (current.getTime() - comienzo.getTime()) / 1000;
         }
         Gson gson = new Gson();
-        if(seconds >= 10){
+        if (seconds >= 10) {
             return Response.accepted(gson.toJson("Ninguna ambulancia ha atendido")).build();
         }
+
         return Response.ok(gson.toJson(ambulanciaDTO.getAmbulanciaID())).build();
     }
 }

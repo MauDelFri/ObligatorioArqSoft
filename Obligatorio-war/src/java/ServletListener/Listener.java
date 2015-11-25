@@ -1,32 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServletListener;
 
 import Negocio.AuditoriaSBLocal;
+import Negocio.ColaEmergenciaSBLocal;
 import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-/**
- *
- * @author martinintroini
- */
 public class Listener implements ServletContextListener {
-//ServletListener.Listener
 
     @EJB
     AuditoriaSBLocal auditoriaBean;
 
+    @EJB
+    ColaEmergenciaSBLocal colaEmergenciaSB;
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Long l = new Long("999");
-        auditoriaBean.Log(this, l, "contextInitialized","Inicio del Servidor", true);
+        auditoriaBean.Log(this, l, "contextInitialized", "Inicio del Servidor", true);
         try {
             ServerStateListener ssl = new ServerStateListener(auditoriaBean);
+            EmergenciasStateListener esl = new EmergenciasStateListener(auditoriaBean, colaEmergenciaSB);
             new Thread(ssl).start();
+            new Thread(esl).start();
         } catch (Exception e) {
             System.err.println("entro al error");
         }
@@ -37,6 +33,7 @@ public class Listener implements ServletContextListener {
         Long l = new Long("999");
         auditoriaBean.Log(this, l, "contextDestroyed", "Fin del Servidor", true);
         ServerStateListener.ejecutando = false;
+        EmergenciasStateListener.ejecutando = false;
     }
 
 }

@@ -1,24 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServletListener;
 
 import Negocio.AuditoriaSBLocal;
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import javax.ejb.EJB;
 import javax.ws.rs.client.Client;
 
 import javax.ws.rs.client.WebTarget;
 
-/**
- *
- * @author martinintroini
- */
 public class ServerStateListener implements Runnable {
 
     private Client client;
@@ -51,15 +40,15 @@ public class ServerStateListener implements Runnable {
                         //logueo respuesta error
                         aSessionBean.logArchivo(this, l, "run", "Servidor & BBDD", false);
                     }
-                        /*else{
-                         // no logueo nada, lo loguea el resultado del check!
-                         //aSessionBean.logArchivo(this, l, "run", "Servidor & BBDD", true);
+                    /*else{
+                     // no logueo nada, lo loguea el resultado del check!
+                     //aSessionBean.logArchivo(this, l, "run", "Servidor & BBDD", true);
 
-                         }
-                         */
-                        conn.disconnect();
+                     }
+                     */
+                    conn.disconnect();
 
-                    }catch (Exception e) {
+                } catch (Exception e) {
                     System.err.println("entro al exception e");
                     try {
                         //logueo exception
@@ -69,12 +58,10 @@ public class ServerStateListener implements Runnable {
                     }
                 }
 
-                } catch (Exception ex) {
-                    System.err.println("entro al exception ex");
-                    // ejecutando = false;
-
-                }
+            } catch (Exception ex) {
+                System.err.println("entro al exception ex");
+                // ejecutando = false;
             }
         }
-
     }
+}
